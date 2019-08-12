@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 
 
@@ -9,11 +10,11 @@ const Header = () => {
         Menu
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenu">
-        <a className="dropdown-item" href="/climb">Climb</a>
-        <a className="dropdown-item" href="/run">Run</a>
-        <a className="dropdown-item" href="/rpi">RPi</a>
+        <Link className="dropdown-item" to="/climb">Climb</Link>
+        <Link className="dropdown-item" to="/run">Run</Link>
+        <Link className="dropdown-item" to="/rpi">RPi</Link>
         <div className="dropdown-divider"></div>
-        <a className="dropdown-item" href="/">Home</a>
+        <Link className="dropdown-item" to="/">Home</Link>
       </div>
     </div>
 )

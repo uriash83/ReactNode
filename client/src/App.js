@@ -6,7 +6,7 @@ import Header from './components/Header';
 import ViewClimb from './components/views/climb';
 import ViewRun from './components/views/run';
 import ViewHome from './components/views/home';
-import ViewRPi from './components/views/rpi';
+//import ViewRPi from './components/views/rpi';
 
 class App extends Component {
 

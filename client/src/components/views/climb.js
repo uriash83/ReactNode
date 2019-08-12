@@ -1,3 +1,4 @@
+import './climb.css';
 import React from 'react';
 
 
@@ -25,8 +26,8 @@ handleSubmit(event) {
     return(
       <div className="label">
       <form onSubmit={this.handleSubmit}>
-        <div className="form-row">
-          <div className="form-group col-sm-6">
+        <div className="form-row rowLabel">
+          <div className="form-group col-sm-2">
             <select 
               id="inputState" 
               class="form-control"
