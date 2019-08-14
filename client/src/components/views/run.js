@@ -4,7 +4,7 @@ import React from 'react';
 
 const ViewRun = () => {
   return(
-    <div className="label">
+    <div className="container-fluid float-left">
       RUN
     </div>
 )

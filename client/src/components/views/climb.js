@@ -11,7 +11,7 @@ state = {value1: '1',value2: '2'};
     
 //handleChange = this.handleChange.bind(this);
 handleSubmit = this.handleSubmit.bind(this);
-    
+// bez tego wyżej nie działa console.log() w funcji handleChange    
 //handleChange(event) {
 //    this.setState({value: event.target.value});
 //    console.log("State: "+ this.state.value)
@@ -24,7 +24,10 @@ handleSubmit(event) {
              
   render(){
     return(
-      <div className="label">
+      /* container-fluid - żeby zawartość była na całą szerokość w kontenerze , 
+      float-lef - zawartość wyrównana do lewej
+      */
+      <div className="container-fluid float-left"> 
       <form onSubmit={this.handleSubmit}>
         <div className="form-row rowLabel">
           <div className="form-group col-sm-2">

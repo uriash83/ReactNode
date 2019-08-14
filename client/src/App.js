@@ -6,7 +6,7 @@ import Header from './components/Header';
 import ViewClimb from './components/views/climb';
 import ViewRun from './components/views/run';
 import ViewHome from './components/views/home';
-//import ViewRPi from './components/views/rpi';
+import ViewRPi from './components/views/rpi';
 
 class App extends Component {
 
@@ -22,8 +22,10 @@ class App extends Component {
     return (
 
         <div>
+          
           <BrowserRouter>
-            <Header/>
+              <Header/>          
+                <Route path='/rpi' exact component={ViewRPi}/>  
                 <Route path='/climb' exact component={ViewClimb}/>
                 <Route path='/run' exact component={ViewRun}/>
                 <Route path='/' exact component={ViewHome}/>

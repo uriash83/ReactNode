@@ -4,7 +4,7 @@ import React from 'react';
 
 const ViewRPi = () => {
   return(
-    <div className="label">
+    <div className="container-fluid float-left">
       RPI
     </div>
 )
