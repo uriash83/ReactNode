@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 const Header = () => {
   return(
-    <div class="container-fluid">
+    <div className="container-fluid">
       <div className="dropdown float-left">
         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           IIII
@@ -19,7 +19,7 @@ const Header = () => {
           <Link className="dropdown-item" to="/">Home</Link>
         </div>
       </div>
-      <button type="button" class="btn btn-info float-right">Action
+      <button type="button" className="btn btn-info float-right">Action
       </button>      
     </div>
 )
