@@ -1,5 +1,7 @@
 import './climb.css';
 import React from 'react';
+import axios from 'axios';
+
 
 
 
@@ -18,6 +20,7 @@ handleSubmit = this.handleSubmit.bind(this);
 //}
 
 handleSubmit(event) {
+    axios.get('http://localhost:36531/getdata',{}).then(res => {console.log('/getdata from client')});
     console.log('Your favorite flavor is: ' + this.state.value1, " and "+ this.state.value2);
     event.preventDefault();
 }
