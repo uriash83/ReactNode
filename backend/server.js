@@ -1,11 +1,14 @@
 //const mysql = require('mysql');
 //const Sequelize = require('sequelize');
+//const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
+require('./db/mongoose')
+
+
 const config = require("../config/config.js")
+const routeClimb = require('./models/modelClimbRoute')
 const climbRouter = require('./routers/routerClimb')
 const app = express();
 app.use(cors());
@@ -18,15 +21,6 @@ app.use(climbRouter);
 
 
 
-mongoose.connect('mongodb://mo7807_auth:Shinseikai2002@136.243.156.104:27017/mo7807_auth', {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
-
-const Cat = mongoose.model('Cat', { name: String });
-
-const kitty = new Cat({ name: 'Zildjian' });
-kitty.save().then(() => console.log('meow'));
 
 
 
