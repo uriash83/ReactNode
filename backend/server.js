@@ -8,7 +8,8 @@ require('./db/mongoose')
 
 
 const config = require("../config/config.js")
-const routeClimb = require('./models/modelClimbRoute')
+const routeClimbIndoor = require('./models/modelClimbIndoor')
+const routeClimbOutdoor = require('./models/modelClimbOutdoor')
 const climbRouter = require('./routers/routerClimb')
 const app = express();
 app.use(cors());
@@ -20,8 +21,37 @@ app.use(climbRouter);
 
 
 
+/*
+newRouteIndoor = new routeClimbIndoor({
+  dateLog: new Date('2014-04-29'),
+  typeClimbing: "Ścianka",
+  typeRoute: "Lead",
+  locationRoute: "Murall",
+  difficulty: "6a",
+  styleClimbing: "Attempt"
+})
+
+newRouteIndoor.save().then((item) => console.log('save Indoor '+item));
+
+newRouterOutdoor = new routeClimbOutdoor({
+  dateLog: new Date('2018-12-09'),
+  typeLogClimbs: "Skały",
+  styleRoute: "Wędka",
+  locationRoute: {
+    mountains: "Jura",
+    valley: "Prądnika",
+    peak: "Szafa"
+  },
+  difficulty: "IV",
+  name: "Klawiatura",
+  duration: 50,
+  crew: "Kuba",
+  comment: "piękna droga"
+})
 
 
+newRouterOutdoor.save().then((item) => console.log('save Indoor '+item));
+*/
 
 
 

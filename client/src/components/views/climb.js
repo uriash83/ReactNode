@@ -1,7 +1,8 @@
 import './climb.css';
 import React from 'react';
 import axios from 'axios';
-
+import ClimbsOutdoor from './climbsOutdoor'
+import ClimbsIndoor from './climbsIndoor'
 
 
 
@@ -12,34 +13,61 @@ class ViewClimb extends React.Component {
 state = {
   value1: '1',
   value2: '2',
-  data: []
+  data: [],
+  dataIndoor: [],
+  dataOutdoor: [],
+  radioCheckedTypeClimb: true
 };
 
+
+
 componentDidMount(){
-  axios.get('http://localhost:36531/getdata',{})
-      //.then((data) => data.json())
-      .then((res) => {
-        this.setState({ data: res.data.data })
-        console.log(res.data.data)
-      }
-      );
+
+  this.handleClimbTypeTable(this.state.radioCheckedTypeClimb);
+  
+  
 }
 
 //handleChange = this.handleChange.bind(this);
 handleSubmit = this.handleSubmit.bind(this);
+handleOptionChange = this.handleOptionChange.bind(this);
+//handleClimbTypeTable = this.handleClimbTypeTable.bind(this);
 // bez tego wyżej nie działa console.log() w funcji handleChange    
 //handleChange(event) {
 //    this.setState({value: event.target.value});
 //    console.log("State: "+ this.state.value)
 //}
+handleClimbTypeTable = (radio) => {
+  console.log("From hndle" + radio)
+  if(!radio){
+    axios.get('http://localhost:36531/climbIndoor/get',{})
+      //.then((data) => data.json())
+      .then((res) => {
+        this.setState({ dataIndoor: res.data.data })
+        console.log(res.data.data)
+      }
+      );
+      console.log('Checked: ' +this.state.radioCheckedTypeClimb);
+  }
+  else{
+    axios.get('http://localhost:36531/climbOutdoor/get',{})
+      //.then((data) => data.json())
+      .then((res) => {
+        this.setState({ dataOutdoor: res.data.data })
+        console.log(res.data.data)
+      }
+      );
+      console.log('Checked: ' +this.state.radioCheckedTypeClimb);
+  }
+}
 
 handleSubmit(event) {
 
-    axios.get('http://localhost:36531/getdata',{})
+    axios.get('http://localhost:36531/climbIndoor/get',{})
       //.then((data) => data.json())
       .then((res) => {
         this.setState({ data: res.data.data })
-        console.log(res.data.data)
+        //console.log(res.data.data)
       }
       );
     
@@ -47,32 +75,65 @@ handleSubmit(event) {
     console.log('Your favorite flavor is: ' + this.state.value1, " and "+ this.state.value2);
     event.preventDefault();
 }
+handleOptionChange (event) {
+  this.setState({radioCheckedTypeClimb: !this.state.radioCheckedTypeClimb})
+
+  this.handleClimbTypeTable(this.state.radioCheckedTypeClimb);
+  
+  console.log('RADIO ' + this.state.radioCheckedTypeClimb)
+ // event.preventDefault();
+}
+
+
              
   render(){
-    const { data } = this.state;
+    //const { data } = this.state;
     return(
-      /* container-fluid - żeby zawartość była na całą szerokość w kontenerze , 
-      float-lef - zawartość wyrównana do lewej
-
-
       
-      
-      */
+       
       <div className="container-fluid float-left"> 
+        <div className="container">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input 
+              type="radio" 
+              id="customRadioInline1" 
+              name="customRadioInline1" 
+              class="custom-control-input"
+              //value="Indoor"
+              checked={this.state.radioCheckedTypeClimb} 
+              onChange={
+                this.handleOptionChange
+                //console.log('RADIO'+this.state.radioCheckedTypeClimb)
+              }/>
+          <label class="custom-control-label" for="customRadioInline1">Climb Indoor</label>
+          </div>
+
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input 
+                type="radio" 
+                id="customRadioInline2" 
+                name="customRadioInline1" 
+                class="custom-control-input"
+                //value="Outdoor"
+                checked={!this.state.radioCheckedTypeClimb} 
+                onChange={
+                  this.handleOptionChange
+                  //console.log('RADIO'+this.state.radioCheckedTypeClimb)
+                }
+                />
+            <label class="custom-control-label" for="customRadioInline2">Climb Outdoor</label>
+          </div>
+        </div>  
+      <div>
+        {this.state.radioCheckedTypeClimb ? <ClimbsIndoor data={this.state.dataIndoor}/> : <ClimbsOutdoor data={this.state.dataOutdoor}/> }
+        Text: + {this.state.radioCheckedTypeClimb ? 'true' : "false"}
+      </div>
+     
       
-        <div>   
-          <ul>
-            {data.length <= 0
-              ? 'NO DB ENTRIES YET'
-              : data.map((dat) => (
-                  <li style={{ padding: '10px' }} key={data._id}>
-                    <span style={{ color: 'gray' }}> typeRoute: </span> {dat.typeRoute} <br />
-                    <span style={{ color: 'gray' }}> locationRoute: </span>{dat.locationRoute} <br />
-                    <span style={{ color: 'gray' }}> difficulty: </span>{dat.difficulty} <br />
-                  </li>
-                ))}
-          </ul>
-        </div>
+        
+         
+        
         
         <form onSubmit={this.handleSubmit}>
           <div className="form-row rowLabel">
@@ -92,6 +153,7 @@ handleSubmit(event) {
           <button type="submit" class="btn btn-primary"  >Szukaj</button>
         </form>
       </div>
+      
     );
   }
 }
