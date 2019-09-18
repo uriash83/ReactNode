@@ -88,39 +88,38 @@ const ClimbsIndoor =(props) => {
 
     
         return (
-            <div>
-               Climb Indoor  
+            <div> 
                <table class="table table-bordered table-hover table-secondary table-sm table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Climb</th>
-                        <th scope="col">Route</th>
-                        <th scope="col">Loc</th>
-                        <th scope="col">Diff</th>
-                        <th scope="col">Style</th>
-                        <th scope="col">Comment</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {props.data.map((route) => (
-                        <tr>
-                        <th scope="row">1</th>
-                            <td>{route.dateLog}</td>
-                            <td>{route.typeClimbing}</td>
-                            <td>{route.typeRoute}</td>
-                            <td>{route.locationRoute}</td>
-                            <td>{route.difficulty}</td>
-                            <td>{route.styleClimbing}</td>
-                            <td>{route.comment}</td>
-                        </tr>
-                    ))}                      
-                        
-                    </tbody>
+                    <caption>Total: {props.data.length}</caption>
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Climb</th>
+                            <th scope="col">Route</th>
+                            <th scope="col">Loc</th>
+                            <th scope="col">Diff</th>
+                            <th scope="col">Style</th>
+                            <th scope="col">Comment</th>
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {props.data.map((route) => (
+                            <tr  key={route._id}>
+                            <th scope="row">1</th>
+                                <td>{route.dateLog}</td>
+                                <td>{route.typeClimbing}</td>
+                                <td>{route.typeRoute}</td>
+                                <td>{route.locationRoute}</td>
+                                <td>{route.difficulty}</td>
+                                <td>{route.styleClimbing}</td>
+                                <td>{route.comment}</td>
+                            </tr>
+                        ))}                      
+                            
+                        </tbody>
                 </table>
-                <h1>climb{props.data.length}</h1>
             </div>
         )        
     

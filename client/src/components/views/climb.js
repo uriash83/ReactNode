@@ -3,6 +3,8 @@ import React from 'react';
 import axios from 'axios';
 import ClimbsOutdoor from './climbsOutdoor'
 import ClimbsIndoor from './climbsIndoor'
+import ClimbRadioButton from './climbRadioButtons'
+import ClimbNewItemModal from './climbNewItemModal'
 
 
 
@@ -16,7 +18,11 @@ state = {
   data: [],
   dataIndoor: [],
   dataOutdoor: [],
-  radioCheckedTypeClimb: true
+  radioCheckedTypeClimb: true,
+  dataNewItem: {
+    input1: 4,
+    input2: 5
+  }
 };
 
 
@@ -24,10 +30,30 @@ state = {
 componentDidMount(){
 
   this.handleClimbTypeTable(this.state.radioCheckedTypeClimb);
-  
+  console.log('NEW ' + this.state.dataNewItem.input1)
   
 }
-
+/*
+<form onSubmit={this.handleSubmit}>
+            <div className="form-row rowLabel">
+              <div className="form-group col-sm-2">
+                <select 
+                  defaultValue="1"
+                  id="inputState" 
+                  class="form-control"
+                  value={this.state.value1} 
+                  onChange={e => {this.setState({value1: e.target.value}); console.log('State: '+this.state.value1)}}>
+                  <option selected>Difficulty</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary"  >Szukaj</button>
+            
+          </form>
+*/
 //handleChange = this.handleChange.bind(this);
 handleSubmit = this.handleSubmit.bind(this);
 handleOptionChange = this.handleOptionChange.bind(this);
@@ -77,9 +103,7 @@ handleSubmit(event) {
 }
 handleOptionChange (event) {
   this.setState({radioCheckedTypeClimb: !this.state.radioCheckedTypeClimb})
-
-  this.handleClimbTypeTable(this.state.radioCheckedTypeClimb);
-  
+  this.handleClimbTypeTable(this.state.radioCheckedTypeClimb);  
   console.log('RADIO ' + this.state.radioCheckedTypeClimb)
  // event.preventDefault();
 }
@@ -87,73 +111,30 @@ handleOptionChange (event) {
 
              
   render(){
-    //const { data } = this.state;
     return(
+      <div className="container-fluid float-left">
+        <ClimbRadioButton 
+          radio={this.state.radioCheckedTypeClimb}
+          text={"Text"}
+          handleRadioButton={this.handleOptionChange.bind(this)} // pass call function do child
+        />
+     
+        <div className="container-fluid float-left">
+
+          {this.state.radioCheckedTypeClimb ? 
+            <ClimbsIndoor data={this.state.dataIndoor}/> : 
+            <ClimbsOutdoor data={this.state.dataOutdoor}/> }
+         
       
        
-      <div className="container-fluid float-left"> 
-        <div className="container">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input 
-              type="radio" 
-              id="customRadioInline1" 
-              name="customRadioInline1" 
-              class="custom-control-input"
-              //value="Indoor"
-              checked={this.state.radioCheckedTypeClimb} 
-              onChange={
-                this.handleOptionChange
-                //console.log('RADIO'+this.state.radioCheckedTypeClimb)
-              }/>
-          <label class="custom-control-label" for="customRadioInline1">Climb Indoor</label>
-          </div>
-
-
-          <div class="custom-control custom-radio custom-control-inline">
-            <input 
-                type="radio" 
-                id="customRadioInline2" 
-                name="customRadioInline1" 
-                class="custom-control-input"
-                //value="Outdoor"
-                checked={!this.state.radioCheckedTypeClimb} 
-                onChange={
-                  this.handleOptionChange
-                  //console.log('RADIO'+this.state.radioCheckedTypeClimb)
-                }
-                />
-            <label class="custom-control-label" for="customRadioInline2">Climb Outdoor</label>
-          </div>
-        </div>  
-      <div>
-        {this.state.radioCheckedTypeClimb ? <ClimbsIndoor data={this.state.dataIndoor}/> : <ClimbsOutdoor data={this.state.dataOutdoor}/> }
-        Text: + {this.state.radioCheckedTypeClimb ? 'true' : "false"}
-      </div>
-     
-      
-        
+        <ClimbNewItemModal data={this.state.dataNewItem}/>
+         
          
         
-        
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-row rowLabel">
-            <div className="form-group col-sm-2">
-              <select 
-                id="inputState" 
-                class="form-control"
-                value={this.state.value1} 
-                onChange={e => {this.setState({value1: e.target.value}); console.log('State: '+this.state.value1)}}>
-                <option selected>Difficulty</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary"  >Szukaj</button>
-        </form>
+          
+          
+        </div>
       </div>
-      
     );
   }
 }
