@@ -3,42 +3,92 @@ import './climbNewItemModal.css';
 
 const climbNewItemModal = (props) => {
 
+    
     return (
         <div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-modal-sm">NEW</button>
 
-            <div className="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div className="modal fade bd-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-sm">
-                <div className="modal-content myclassWidth">
-                        <select  className='myclassPadding'
-                            defaultValue="1"
-                            id="inputState"
-                            class="form-control-sm"
-                            value={props.input1}
-                        //onChange={e =>console.log('State: ')}
-                        >
-
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
-
-                        <select
-                            defaultValue="12"
-                            id="inputState"
-                            class="form-control-sm"
-                            value={props.input2}
-                            onChange={e => console.log('State: ')}>
-
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save</button>
+                <div className="modal-content container-fluid">
+                <div class="modal-header justify-content-center">        
+                    <button
+                        //type="button" 
+                        class="btn btn-dark" 
+                        onClick={props.handleSwitchButton}>
+                        {props.switchState ? "Swtich to Indoor":"Swich to Outdor" }
+                    </button>
+                </div>
+                <div class="modal-body">
+                {props.switchState 
+                ? 
+                //OUTDOOR
+                    <div className="container">
+                        <h6>Outdoor</h6>
+                        <form>
+                        <div className="form-row rowLabel myclassWidth">
+                            <div className="form-group col-md-7">
+                               {/* DATE */}
+                                <select  className="form-control"
+                                defaultValue="1"
+                                id="inputState" 
+                                class="form-control"
+                                //value={this.state.value1} 
+                                //onChange={e => {this.setState({value1: e.target.value}); console.log('State: '+this.state.value1)}}
+                                >
+                                <option selected>Date</option>                                
+                                </select>
+                                {/* CLIMB */}
+                                <select  className="form-control"
+                                defaultValue="1"
+                                id="inputState" 
+                                class="form-control"
+                                //value={this.state.value1} 
+                                //onChange={e => {this.setState({value1: e.target.value}); console.log('State: '+this.state.value1)}}
+                                >
+                                <option selected>Climb</option> 
+                                <option>Wspin</option>
+                                <option>Skały</option>
+                                <option>Baldy</option>                               
+                                </select>
+                            </div>
                         </div>
-                        
+                            <button type="submit" class="btn btn-success"  >Submit</button>
+            
+                        </form>
+                    </div>
+                : 
+                //INDOOR
+                    <div className="container">
+                        Indoor
+
+                        <form>
+                        <div className="form-row rowLabel myclassWidth">
+                        <div className="form-group col-md-7">
+                            <select className="form-control"
+                            defaultValue="1"
+                            id="inputState" 
+                            class="form-control"
+                            //value={this.state.value1} 
+                            //onChange={e => {this.setState({value1: e.target.value}); console.log('State: '+this.state.value1)}}
+                            >
+                            <option selected>Difficulty</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            </select>
+                        </div>
+                        </div>
+                            <button type="submit" class="btn btn-success"  >Submit</button>
+            
+                        </form>
+                    </div>
+                }
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-danger " data-dismiss="modal">Cancel</button>
+                </div>
                 </div>
             </div>
             </div>

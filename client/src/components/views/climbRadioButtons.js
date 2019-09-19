@@ -1,9 +1,8 @@
 import React from 'react'
 
-class climbRadioButton extends React.Component{
 
+const climbRadioButton = (props) => {
 
-    render(){
 
         return(
             <div className="p-4 ">
@@ -14,9 +13,9 @@ class climbRadioButton extends React.Component{
                             id="customRadioInline1" 
                             name="customRadioInline1" 
                             className="custom-control-input"
-                            checked={this.props.radio} 
+                            checked={props.radio} 
                             onChange={
-                                this.props.handleRadioButton
+                                props.handleRadioButton
                         }/>
                         <label className="custom-control-label" htmlFor="customRadioInline1">
                                 <span className="text-light">Climb Indoor</span>
@@ -30,9 +29,9 @@ class climbRadioButton extends React.Component{
                             id="customRadioInline2" 
                             name="customRadioInline1" 
                             className="custom-control-input"
-                            checked={!this.props.radio} 
+                            checked={!props.radio} 
                             onChange={
-                            this.props.handleRadioButton
+                            props.handleRadioButton
                             }
                             />
                         <label className="custom-control-label" htmlFor="customRadioInline2">
@@ -47,7 +46,7 @@ class climbRadioButton extends React.Component{
             </div>
         );
     }
-}
+
 
 
 

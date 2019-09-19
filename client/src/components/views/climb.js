@@ -9,6 +9,7 @@ import ClimbNewItemModal from './climbNewItemModal'
 
 
 
+
 class ViewClimb extends React.Component {
 
 
@@ -19,6 +20,7 @@ state = {
   dataIndoor: [],
   dataOutdoor: [],
   radioCheckedTypeClimb: true,
+  switchButtonNewItem: true,
   dataNewItem: {
     input1: 4,
     input2: 5
@@ -57,6 +59,7 @@ componentDidMount(){
 //handleChange = this.handleChange.bind(this);
 handleSubmit = this.handleSubmit.bind(this);
 handleOptionChange = this.handleOptionChange.bind(this);
+handleSwitchButtonType = this.handleSwitchButtonType.bind(this);
 //handleClimbTypeTable = this.handleClimbTypeTable.bind(this);
 // bez tego wyżej nie działa console.log() w funcji handleChange    
 //handleChange(event) {
@@ -108,9 +111,15 @@ handleOptionChange (event) {
  // event.preventDefault();
 }
 
+handleSwitchButtonType (event) {
+  this.setState({switchButtonNewItem: !this.state.switchButtonNewItem})
+  console.log('Swtich  ' + this.state.switchButtonNewItem)
+}
+
 
              
   render(){
+    
     return(
       <div className="container-fluid float-left">
         <ClimbRadioButton 
@@ -125,11 +134,12 @@ handleOptionChange (event) {
             <ClimbsIndoor data={this.state.dataIndoor}/> : 
             <ClimbsOutdoor data={this.state.dataOutdoor}/> }
          
-      
-       
-        <ClimbNewItemModal data={this.state.dataNewItem}/>
+         <ClimbNewItemModal 
+            switchState={this.state.switchButtonNewItem}
+            handleSwitchButton={this.handleSwitchButtonType.bind(this)}/>
+        
          
-         
+            
         
           
           
