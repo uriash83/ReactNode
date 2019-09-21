@@ -52,15 +52,20 @@ router.get('/climbOutdoor/get', async (req,res) => {
 })
         
 
-router.post('/postdata' ,(req,res) => {
+router.post('/climbIndoor/post' ,(req,res) => {
+    console.log('Date: '+ req.body.date + 'Climb: ' + req.body.climb)
     const newRoute = new routeClimbIndoor({
-        typeLogClimbs: "Indoor",
-        locationRoute: "Murall",
-        difficulty: "6a+"
-      })
+        dateLog: req.body.date,
+        typeClimbing: req.body.climb,
+        typeRoute: req.body.route,
+        locationRoute: req.body.locationRoute,
+        difficulty: req.body.difficulty,
+        styleClimbing: req.body.styleClimbing,
+        comment: req.body.comment
+     })
       
       
-      newRoute.save().then((item) => console.log('getClick '+item));
+      newRoute.save().then((item) => console.log('POST'+item));
 })
 
  module.exports = router

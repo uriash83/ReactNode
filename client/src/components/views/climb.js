@@ -5,6 +5,9 @@ import ClimbsOutdoor from './climbsOutdoor'
 import ClimbsIndoor from './climbsIndoor'
 import ClimbRadioButton from './climbRadioButtons'
 import ClimbNewItemModal from './climbNewItemModal'
+//import ClimbTemp from './climbTemp'
+//import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -24,7 +27,16 @@ state = {
   dataNewItem: {
     input1: 4,
     input2: 5
-  }
+  },
+  
+  IndoorDate: new Date(),
+  IndoorClimb: '',
+  IndoorRoute: '',
+  IndoorLocation: '',
+  IndoorDifficulty: '',
+  IndoorStyle: '',
+  IndoorComment: ''
+  
 };
 
 
@@ -57,7 +69,7 @@ componentDidMount(){
           </form>
 */
 //handleChange = this.handleChange.bind(this);
-handleSubmit = this.handleSubmit.bind(this);
+
 handleOptionChange = this.handleOptionChange.bind(this);
 handleSwitchButtonType = this.handleSwitchButtonType.bind(this);
 //handleClimbTypeTable = this.handleClimbTypeTable.bind(this);
@@ -90,24 +102,63 @@ handleClimbTypeTable = (radio) => {
   }
 }
 
-handleSubmit(event) {
+handleSubmitPost(event) {
+  
+  console.log('Post=> Date: ' + this.state.IndoorDate 
+      + 'Climb: ' + this.state.IndoorClimb
+    )
+   axios.post('http://localhost:36531/climbIndoor/post',{
+      date: this.state.IndoorDate,
+      climb: this.state.IndoorClimb,
+      route: this.state.IndoorRoute,
+      locationRoute: this.state.IndoorLocation,
+      difficulty: this.state.IndoorDifficulty,
+      styleClimbing: this.state.IndoorStyle,
+      comment: this.state.IndoorComment
+   }).then((res)=>{
+    console.log(res)
+   })
+   this.setState({
+     IndoorDate: new Date(),
+     IndoorClimb: '',
+     IndoorRoute: '',
+     IndoorLocation: '',
+     IndoorDifficulty: '',
+     IndoorStyle: '',
+     IndoorComment: ''
 
-    axios.get('http://localhost:36531/climbIndoor/get',{})
-      //.then((data) => data.json())
-      .then((res) => {
-        this.setState({ data: res.data.data })
-        //console.log(res.data.data)
-      }
-      );
-    
-    
-    console.log('Your favorite flavor is: ' + this.state.value1, " and "+ this.state.value2);
-    event.preventDefault();
+   })
+   event.preventDefault();
 }
+handleOnChangeNewPostIndoorDate = date => {
+  this.setState({
+    IndoorDate: date
+  });
+  console.log("Date: " + date)
+};
+
+handleOnChangeNewPostIndoor(event) {
+
+  console.log("eventNanme: " +event.target.name +" eventValue: " + event.target.value + ' state: ' +this.state.IndoorClimb)
+  const targetState= event.target.name;
+  const valueState = event.target.value;
+  //switch (event.target.name) {
+    //case ('IndoorClimb'):
+      //var dataSendToServerIndoor = {...this.state.dataSendToServerIndoor};
+      //dataSendToServerIndoor.climb = event.target.value;
+      //this.setState({dataSendToServerIndoor});
+      this.setState({[targetState]: valueState});
+      
+    
+  //}
+  //console.log("eventNanme: " +event.target.name +" eventValue: " + event.target.value + ' state: ' +this.state.dataSendToServerIndoor.climb) 
+}
+
+
 handleOptionChange (event) {
   this.setState({radioCheckedTypeClimb: !this.state.radioCheckedTypeClimb})
   this.handleClimbTypeTable(this.state.radioCheckedTypeClimb);  
-  console.log('RADIO ' + this.state.radioCheckedTypeClimb)
+  //console.log('RADIO ' + this.state.radioCheckedTypeClimb)
  // event.preventDefault();
 }
 
@@ -134,10 +185,24 @@ handleSwitchButtonType (event) {
             <ClimbsIndoor data={this.state.dataIndoor}/> : 
             <ClimbsOutdoor data={this.state.dataOutdoor}/> }
          
+          {/*<ClimbTemp 
+            IndoorDateTemp={this.state.IndoorDate}
+            handleOnChangeDate={this.handleOnChangeNewPostIndoorDate.bind(this)}
+          />*/}
          <ClimbNewItemModal 
+            handleOnChangeDate={this.handleOnChangeNewPostIndoorDate.bind(this)}
+            handleOnChangeItem={this.handleOnChangeNewPostIndoor.bind(this)}
+            handleSwitchButton={this.handleSwitchButtonType.bind(this)}
+            handleSubmitNewPost={this.handleSubmitPost.bind(this)}            
+            IndoorDateItem={this.state.IndoorDate}
+            IndoorRouteItem={this.state.IndoorRoute}
+            IndoorLocationItem={this.state.IndoorLocation}
+            IndoorDifficultyItem={this.state.IndoorDifficulty} 
+            IndoorStyleItem={this.state.IndoorStyle}          
+            IndoorCommentItem={this.state.IndoorComment}
             switchState={this.state.switchButtonNewItem}
-            handleSwitchButton={this.handleSwitchButtonType.bind(this)}/>
-        
+          />
+            
          
             
         
